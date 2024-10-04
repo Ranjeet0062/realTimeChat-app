@@ -92,12 +92,13 @@ export const signup = async (req, res) => {
   };
 export const login = async (req, res) => {
     try {
+      console.log("inside login ",req)
       const { username, password } = req.body;
   
       if (!username || !password) {
         return res.status(400).json({
           success: false,
-          message: "Please provide both username or email and password",
+          message: "Please provide both username  and password",
         });
       }
   
@@ -157,4 +158,13 @@ export const login = async (req, res) => {
       });
     }
   };
+  export const checkmiddleware=async(req,res)=>{
+    try {
+      return res.status(200).json({
+        message:"middleware is fine"
+      })
+    } catch (error) {
+      
+    }
+  }
   

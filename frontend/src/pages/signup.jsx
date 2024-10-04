@@ -24,35 +24,37 @@ const formSchema = z.object({
     .min(2, "Username must be atleast two characters long")
     .max(20, "Username can't be more than 20 characters long")
     .regex(/^[a-zA-Z0-9_]+$/, "Username must not contain special characters"),
-    firstName: z.string()
+  firstName: z.string()
     .min(1, { message: "first-Name must contain atleast characters" }),
-    lastName: z.string()
+  lastName: z.string()
     .min(1, { message: "last-Name must contain atleast characters" }),
-    password: z.string()
+  password: z.string()
     .min(6, { message: "Password must contain atleast 6 characters" }),
 })
 
 export function Signup() {
 
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: '',
-      firstName:'',
-      lastName:'',
+      firstName: '',
+      lastName: '',
       password: '',
     }
   })
 
   const onSubmit = async (data) => {
-    await axios.post("http://localhost:5555/api/auth/signup",data,{
-      withCredentials:true
-    }).then((res)=>{
+    axios.post("http://localhost:5555/api/auth/signup", data, {
+      withCredentials: true
+    }).then((res) => {
       // console.log("response",response)
-      if(res.status==200){
+      if (res.status == 200) {
         navigate("/")
       }
+    }).catch((error) => {
+      console.log("error accure inside login ", error)
     })
     // console.log("data from form", response)
   }
