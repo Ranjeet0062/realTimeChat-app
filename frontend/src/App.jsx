@@ -1,12 +1,15 @@
-import { Button } from '@shadcn/ui/components/button'
+/* eslint-disable react/react-in-jsx-scope */
+// import { Button } from "./components/ui/button"
+import { Route, Routes } from "react-router-dom"
+import {LoginForm} from "./pages/signin.jsx"
+import {Signup} from "./pages/signup.jsx"
 function App() {
-
-
   return (
     <>
-    <div className=" text-blue-700">hii</div>
-     hello
-     <Button>CLICK ME</Button>
+      <Routes>
+        <Route path="/" element={ <LoginForm/>}/>
+        <Route path="/signup" element={ <Signup/>}/>
+      </Routes>
     </>
   )
 }
