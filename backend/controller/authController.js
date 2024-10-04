@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 dotenv.config();
 export const signup = async (req, res) => {
     try {
-      console.log(req);
+      console.log("req inside signup",req.body);
       const { firstName, lastName, password, username} = req.body;
       if (!firstName || !lastName || !password || !username) {
         res.status(400).json({
@@ -23,9 +23,9 @@ export const signup = async (req, res) => {
         });
       }
       const userexist = await User.findOne({ username });
-  
+  console.log("user in signup",userexist)
       if (userexist) {
-        return res.status(400).json({
+        return res.status(409).json({
           success: false,
           message: `user already exist please login `,
         });
@@ -59,6 +59,7 @@ export const signup = async (req, res) => {
         password: hashedpassword,
         profile,
       });
+      console.log("user created",user)
       user.password = undefined;
       return res.status(200).json({
         success: true,

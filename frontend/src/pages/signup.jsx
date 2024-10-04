@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Link } from "react-router-dom"
+import axios from "axios"
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
   username: z
@@ -32,7 +34,7 @@ const formSchema = z.object({
 
 export function Signup() {
 
-
+  const navigate=useNavigate();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -44,7 +46,15 @@ export function Signup() {
   })
 
   const onSubmit = async (data) => {
-    console.log("data from form", data)
+    await axios.post("http://localhost:5555/api/auth/signup",data,{
+      withCredentials:true
+    }).then((res)=>{
+      // console.log("response",response)
+      if(res.status==200){
+        navigate("/")
+      }
+    })
+    // console.log("data from form", response)
   }
   return (
     <div className=" flex justify-center items-center min-h-screen bg-gray-100">
