@@ -17,6 +17,8 @@ import { Input } from "@/components/ui/input"
 import { Link } from "react-router-dom"
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux"
+import { setuser } from "@/reducer/userReducer"
 
 const formSchema = z.object({
   username: z
@@ -29,7 +31,7 @@ const formSchema = z.object({
 })
 
 export function LoginForm() {
-
+const dispatch=useDispatch();
 const navigate=useNavigate();
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -45,7 +47,9 @@ const navigate=useNavigate();
       withCredentials:true
     }).then((res)=>{
       if(res.status===200){
-        navigate("/")
+        console.log("res",res)
+        dispatch(setuser(res.data.user));
+        navigate("/home")
       }
     }).catch((error)=>{
       console.log("error accure inside login ",error)
