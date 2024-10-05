@@ -1,31 +1,12 @@
-import { Button } from '@/components/ui/button';
-import { setuser } from '@/reducer/userReducer';
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom';
+import MessageContainer from "../messages/MessageContainer";
+import Sidebar from "../sidebar/Sidebar";
 
-function Home() {
-  const data = useSelector((state) => state.user);
-  console.log("data inside",data)
-  const dispatch = useDispatch();
-  const navigate = useNavigate()
-  const handleClick = async () => {
-    dispatch(setuser(null));
-    navigate("/")
-  }
-
-
-  return (
-    data.user?
-      (
-        <>
-          <div>Welcome!{data?.user?.firstName} {data?.user?.lastName}</div>
-          <Button onClick={handleClick}>logout</Button>
-        </>
-      )
-      :
-      (<div>hello</div>)
-  )
-}
-
-export default Home
+const Home = () => {
+	return (
+		<div className='flex sm:h-[450px] md:h-[550px] rounded-lg overflow-hidden bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0'>
+			<Sidebar />
+			<MessageContainer />
+		</div>
+	);
+};
+export default Home;
